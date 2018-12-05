@@ -54,4 +54,32 @@ public class MainActivity extends AppCompatActivity {
             }
         }));
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_layout, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Intent mIntent;
+        switch (item.getItemId()) {
+            case R.id.menuGetPembelian:
+                mIntent = new Intent(this, MainActivity.class);
+                startActivity(mIntent);
+                return true;
+            case R.id.menuGetPembeli:
+                mIntent = new Intent(this, GetPembeliActivity.class);
+                startActivity(mIntent);
+                return true;
+            case R.id.menuTransaksiPembelian:
+//                mIntent = new Intent(this, Main2Activity.class);
+//                startActivity(mIntent);
+                return true;
+            case R.id.menuTransaksiPembeli:
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 }
