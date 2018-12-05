@@ -11,15 +11,15 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import td.fransiska.ti3a_17_19_tugasbesar.Models.TiketModel;
+import td.fransiska.ti3a_17_19_tugasbesar.Models.Tiket;
 import td.fransiska.ti3a_17_19_tugasbesar.R;
 
 public class TiketAdapter extends RecyclerView.Adapter<TiketAdapter.CustomHolder> {
 
-    private List<TiketModel> dataset;
+    private List<Tiket> dataset;
     Context mContext;
 
-    public TiketAdapter(List<TiketModel> dataset, Context mContext) {
+    public TiketAdapter(List<Tiket> dataset, Context mContext) {
         this.dataset = dataset;
         this.mContext = mContext;
     }
@@ -35,11 +35,11 @@ public class TiketAdapter extends RecyclerView.Adapter<TiketAdapter.CustomHolder
 
     @Override
     public void onBindViewHolder(@NonNull CustomHolder customHolder, int i) {
-        TiketModel tm = dataset.get(i);
-        customHolder.judul.setText(tm.getJudul());
-        customHolder.waktuBerangkat.setText(tm.getWaktuBerangkat());
-        customHolder.harga.setText(tm.getHarga());
-        customHolder.foto.setImageResource(tm.getFoto());
+        Tiket tm = dataset.get(i);
+        customHolder.judul.setText(tm.getKota());
+        customHolder.waktuBerangkat.setText(tm.getWaktu());
+        customHolder.harga.setText(String.valueOf(tm.getHarga()));
+        //customHolder.foto.setImageResource(tm.getPhotoId());
 
     }
 

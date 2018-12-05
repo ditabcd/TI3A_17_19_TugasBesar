@@ -5,29 +5,32 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import td.fransiska.ti3a_17_19_tugasbesar.Adapters.ClickListener;
 import td.fransiska.ti3a_17_19_tugasbesar.Adapters.RecycleTouchListener;
 import td.fransiska.ti3a_17_19_tugasbesar.Adapters.TiketAdapter;
 import td.fransiska.ti3a_17_19_tugasbesar.Helpers.SessionManagement;
-import td.fransiska.ti3a_17_19_tugasbesar.Models.TiketModel;
+import td.fransiska.ti3a_17_19_tugasbesar.Models.ResultTiket;
+import td.fransiska.ti3a_17_19_tugasbesar.Models.Tiket;
+import td.fransiska.ti3a_17_19_tugasbesar.Rest.ApiClient;
+import td.fransiska.ti3a_17_19_tugasbesar.Rest.ApiInterface;
 
 public class MainActivity extends AppCompatActivity {
 
     private RecyclerView mRecyclerView;
     private RecyclerView.LayoutManager mLayoutManager;
     private RecyclerView.Adapter mAdapter;
-    private List<TiketModel> dataset = new ArrayList<>();
+    private List<Tiket> dataset = new ArrayList<>();
     private SessionManagement sessionManagement;
 
     @Override
@@ -40,10 +43,26 @@ public class MainActivity extends AppCompatActivity {
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        dataset.add(new TiketModel("Blitar","14.00", "Rp 50.000", R.drawable.ic_launcher_background));
 
         mAdapter = new TiketAdapter(dataset, this);
         mRecyclerView.setAdapter(mAdapter);
+
+        ApiInterface mApiInterface = ApiClient.getClient().create(ApiInterface.class);
+        Call<ResultTiket> mPembeliCall = mApiInterface.getTiket();
+        mPembeliCall.enqueue(new Callback<ResultTiket>() {
+            @Override
+            public void onResponse(Call<ResultTiket> call,
+                                   Response<ResultTiket> response) {
+                Log.d("Get Pembeli",response.body().getStatus());
+                List<Tiket> listPembeli = response.body().getResult();
+                mAdapter = new TiketAdapter(listPembeli, getApplicationContext());
+                mRecyclerView.setAdapter(mAdapter);
+            }
+            @Override
+            public void onFailure(Call<ResultTiket> call, Throwable t) {
+                Log.d("Get Pembeli",t.getMessage());
+            }
+        });
 
         mRecyclerView.addOnItemTouchListener(new RecycleTouchListener(getApplicationContext(), mRecyclerView, new ClickListener() {
             @Override
