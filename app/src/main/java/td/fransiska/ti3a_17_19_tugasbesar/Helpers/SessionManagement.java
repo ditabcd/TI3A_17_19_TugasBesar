@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 
 import java.util.HashMap;
 
+import td.fransiska.ti3a_17_19_tugasbesar.LoginActivity;
 import td.fransiska.ti3a_17_19_tugasbesar.MainActivity;
 
 public class SessionManagement {
@@ -72,7 +73,7 @@ public class SessionManagement {
         mEditor.clear();
         mEditor.commit();
         // After logout redirect user to Loing Activity
-        Intent i = new Intent(mContext, MainActivity.class);
+        Intent i = new Intent(mContext, LoginActivity.class);
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         mContext.startActivity(i);

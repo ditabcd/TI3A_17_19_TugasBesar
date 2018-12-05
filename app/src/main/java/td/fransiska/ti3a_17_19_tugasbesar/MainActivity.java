@@ -5,6 +5,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -17,6 +19,7 @@ import java.util.List;
 import td.fransiska.ti3a_17_19_tugasbesar.Adapters.ClickListener;
 import td.fransiska.ti3a_17_19_tugasbesar.Adapters.RecycleTouchListener;
 import td.fransiska.ti3a_17_19_tugasbesar.Adapters.TiketAdapter;
+import td.fransiska.ti3a_17_19_tugasbesar.Helpers.SessionManagement;
 import td.fransiska.ti3a_17_19_tugasbesar.Models.TiketModel;
 
 public class MainActivity extends AppCompatActivity {
@@ -25,12 +28,14 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView.LayoutManager mLayoutManager;
     private RecyclerView.Adapter mAdapter;
     private List<TiketModel> dataset = new ArrayList<>();
+    private SessionManagement sessionManagement;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        sessionManagement = new SessionManagement(this);
         mRecyclerView = (RecyclerView) findViewById(R.id.rv);
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
@@ -64,19 +69,8 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         Intent mIntent;
         switch (item.getItemId()) {
-            case R.id.menuGetPembelian:
-                mIntent = new Intent(this, MainActivity.class);
-                startActivity(mIntent);
-                return true;
-            case R.id.menuGetPembeli:
-                mIntent = new Intent(this, GetPembeliActivity.class);
-                startActivity(mIntent);
-                return true;
-            case R.id.menuTransaksiPembelian:
-//                mIntent = new Intent(this, Main2Activity.class);
-//                startActivity(mIntent);
-                return true;
-            case R.id.menuTransaksiPembeli:
+            case R.id.menuLogout:
+                sessionManagement.logoutUser();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
