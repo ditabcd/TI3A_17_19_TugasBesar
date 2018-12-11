@@ -52,23 +52,12 @@ public class PembayaranActivity extends AppCompatActivity {
         edtNama = findViewById(R.id.edtNama);
         edtAlamatJemput = findViewById(R.id.edtAlamatJemput);
         edtAlamatAntar = findViewById(R.id.edtAlamatAntar);
-        btnAddGambar = findViewById(R.id.btnAddGambar);
         btnAddPembayaran = findViewById(R.id.btnAddPembayaran);
 
         final Intent mIntent = getIntent();
 
         txtIdTiket.setText(String.valueOf(mIntent.getStringExtra("id_tiket")));
 
-        btnAddGambar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final Intent galleryIntent = new Intent();
-                galleryIntent.setType("image/*");
-                galleryIntent.setAction(Intent.ACTION_PICK);
-                Intent intentChoose = Intent.createChooser(galleryIntent, "Pilih Gambar Untuk Di upload");
-                startActivityForResult(intentChoose, 10);
-            }
-        });
 
         btnAddPembayaran.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,32 +85,5 @@ public class PembayaranActivity extends AppCompatActivity {
                 });
             }
         });
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK && requestCode ==10){
-            if (data==null){
-                Toast.makeText(PembayaranActivity.this, "Gambar Gagal Di load",
-                        Toast.LENGTH_LONG).show();
-                return;
-            }
-            Uri selectedImage = data.getData();
-            String[] filePathColumn = {MediaStore.Images.Media.DATA};
-            Cursor cursor = getContentResolver().query(selectedImage, filePathColumn,
-                    null, null, null);
-            if (cursor != null) {
-                cursor.moveToFirst();
-                int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-                imagePath =cursor.getString(columnIndex);
-
-                Glide.with(PembayaranActivity.this).load(new File(imagePath)).into(imgGambar);
-                cursor.close();
-            }else{
-                Toast.makeText(PembayaranActivity.this, "Gambar Gagal Di load",
-                        Toast.LENGTH_LONG).show();
-            }
-        }
     }
 }
