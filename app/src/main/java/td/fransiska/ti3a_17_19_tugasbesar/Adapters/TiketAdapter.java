@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
 
 import td.fransiska.ti3a_17_19_tugasbesar.Models.Tiket;
@@ -39,6 +41,8 @@ public class TiketAdapter extends RecyclerView.Adapter<TiketAdapter.CustomHolder
         customHolder.judul.setText(tm.getKota());
         customHolder.waktuBerangkat.setText(tm.getWaktu());
         customHolder.harga.setText(String.valueOf(tm.getHarga()));
+        Picasso.with(mContext).load(tm.getPhotoId()).placeholder(R.drawable.ic_launcher_background).error(R.drawable.ic_launcher_background).into(customHolder.foto);
+
         //customHolder.foto.setImageResource(tm.getPhotoId());
 
     }
