@@ -15,10 +15,8 @@ public interface ApiInterface {
     Call<ResultTiket> getTiket();
 
     @Multipart
-    @POST("laporan/laporan")
-    Call<ResultPembelian> postLaporan(
-            @Part MultipartBody.Part file,
-            @Part("id") RequestBody id,
+    @POST("Pembelian/pembelian")
+    Call<ResultPembelian> postPembelian(
             @Part("id_tiket") RequestBody id_tiket,
             @Part("tanggal") RequestBody tanggal,
             @Part("nama") RequestBody nama,

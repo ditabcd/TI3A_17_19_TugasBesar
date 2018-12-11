@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ResultTiket {
+
     @SerializedName("status")
     private String status;
     @SerializedName("result")
@@ -37,4 +38,5 @@ public class ResultTiket {
     public void setMessage(String message) {
         this.message = message;
     }
+
 }

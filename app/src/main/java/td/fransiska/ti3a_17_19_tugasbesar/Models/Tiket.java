@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
 
 
-public class Tiket {
+public class Tiket implements Serializable{
     @SerializedName("id_tiket")
             private int idTiket;
     @SerializedName("kota")

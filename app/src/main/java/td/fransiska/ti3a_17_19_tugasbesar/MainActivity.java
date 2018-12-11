@@ -33,6 +33,8 @@ public class MainActivity extends AppCompatActivity {
     private List<Tiket> dataset = new ArrayList<>();
     private SessionManagement sessionManagement;
 
+    List<Tiket> listPembeli;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
             public void onResponse(Call<ResultTiket> call,
                                    Response<ResultTiket> response) {
                 Log.d("Get Pembeli",response.body().getStatus());
-                List<Tiket> listPembeli = response.body().getResult();
+                listPembeli = response.body().getResult();
                 mAdapter = new TiketAdapter(listPembeli, getApplicationContext());
                 mRecyclerView.setAdapter(mAdapter);
             }
@@ -68,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view, int position) {
                 Intent i = new Intent(getApplicationContext(), DetailActivity.class);
-
+                i.putExtra("tiket_data",listPembeli.get(position));
                 startActivity(i);
             }
 
