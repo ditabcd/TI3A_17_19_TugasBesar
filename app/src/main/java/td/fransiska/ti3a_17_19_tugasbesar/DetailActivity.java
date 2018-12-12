@@ -11,12 +11,14 @@ import td.fransiska.ti3a_17_19_tugasbesar.Models.Tiket;
 public class DetailActivity extends AppCompatActivity {
 
     Button btnPembayaran;
+    Button btnMaps;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
         btnPembayaran = findViewById(R.id.btnPembayaran);
+        btnMaps = findViewById(R.id.btnMaps);
 
         Intent mIntent = getIntent();
 
@@ -27,6 +29,14 @@ public class DetailActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent i = new Intent(DetailActivity.this,PembayaranActivity.class);
                 i.putExtra("id_tiket",String.valueOf(mTiket.getIdTiket()));
+                startActivity(i);
+            }
+        });
+
+        btnMaps.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(DetailActivity.this,MapsActivity.class);
                 startActivity(i);
             }
         });
