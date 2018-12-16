@@ -7,12 +7,16 @@ import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
+import retrofit2.http.Path;
 import td.fransiska.ti3a_17_19_tugasbesar.Models.ResultPembelian;
 import td.fransiska.ti3a_17_19_tugasbesar.Models.ResultTiket;
 
 public interface ApiInterface {
     @GET("tiket/tiket")
     Call<ResultTiket> getTiket();
+
+    @GET("tiket/tiket/{kata}")
+    Call<ResultTiket> getTiketbyKota(@Path("kata") String kata);
 
     @Multipart
     @POST("Pembelian/pembelian")

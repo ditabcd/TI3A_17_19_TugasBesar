@@ -9,6 +9,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +35,8 @@ public class MainActivity extends AppCompatActivity {
     private List<Tiket> dataset = new ArrayList<>();
     private SessionManagement sessionManagement;
 
+    EditText edtSearch;
+    Button btnSearch;
     List<Tiket> listPembeli;
 
     @Override
@@ -44,27 +48,14 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerView = (RecyclerView) findViewById(R.id.rv);
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
+        edtSearch = findViewById(R.id.edtSearch);
+        btnSearch = findViewById(R.id.btnSearch);
 
 
         mAdapter = new TiketAdapter(dataset, this);
         mRecyclerView.setAdapter(mAdapter);
 
-        ApiInterface mApiInterface = ApiClient.getClient().create(ApiInterface.class);
-        Call<ResultTiket> mPembeliCall = mApiInterface.getTiket();
-        mPembeliCall.enqueue(new Callback<ResultTiket>() {
-            @Override
-            public void onResponse(Call<ResultTiket> call,
-                                   Response<ResultTiket> response) {
-                Log.d("Get Pembeli",response.body().getStatus());
-                listPembeli = response.body().getResult();
-                mAdapter = new TiketAdapter(listPembeli, getApplicationContext());
-                mRecyclerView.setAdapter(mAdapter);
-            }
-            @Override
-            public void onFailure(Call<ResultTiket> call, Throwable t) {
-                Log.d("Get Pembeli",t.getMessage());
-            }
-        });
+        getTiket();
 
         mRecyclerView.addOnItemTouchListener(new RecycleTouchListener(getApplicationContext(), mRecyclerView, new ClickListener() {
             @Override
@@ -79,6 +70,14 @@ public class MainActivity extends AppCompatActivity {
 
             }
         }));
+
+        btnSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String kata = edtSearch.getText().toString();
+                getTiketbyKota(kata);
+            }
+        });
     }
 
     @Override
@@ -96,5 +95,48 @@ public class MainActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+    public void getTiket()
+    {
+        ApiInterface mApiInterface = ApiClient.getClient().create(ApiInterface.class);
+        Call<ResultTiket> mPembeliCall = mApiInterface.getTiket();
+        mPembeliCall.enqueue(new Callback<ResultTiket>() {
+            @Override
+            public void onResponse(Call<ResultTiket> call,
+                                   Response<ResultTiket> response) {
+                Log.d("Get Pembeli",response.body().getStatus());
+                listPembeli = response.body().getResult();
+                mAdapter = new TiketAdapter(listPembeli, getApplicationContext());
+                mRecyclerView.setAdapter(mAdapter);
+            }
+            @Override
+            public void onFailure(Call<ResultTiket> call, Throwable t) {
+                Log.d("Get Pembeli",t.getMessage());
+            }
+        });
+    }
+
+    public void getTiketbyKota(String kata)
+    {
+        ApiInterface mApiInterface = ApiClient.getClient().create(ApiInterface.class);
+        Call<ResultTiket> mPembeliCall = mApiInterface.getTiketbyKota(kata);
+        mPembeliCall.enqueue(new Callback<ResultTiket>() {
+            @Override
+            public void onResponse(Call<ResultTiket> call,
+                                   Response<ResultTiket> response) {
+                Log.d("Get Pembeli",response.body().getStatus());
+                listPembeli = response.body().getResult();
+                if (listPembeli.size()==0)
+                {
+                    listPembeli.add(new Tiket(0,"Not Found","Not Found",404,"https://idevice.co.id/data/avatars/o/6/6817.jpg",""));
+                }
+                mAdapter = new TiketAdapter(listPembeli, getApplicationContext());
+                mRecyclerView.setAdapter(mAdapter);
+            }
+            @Override
+            public void onFailure(Call<ResultTiket> call, Throwable t) {
+                Log.d("Get Pembeli",t.getMessage());
+            }
+        });
     }
 }
