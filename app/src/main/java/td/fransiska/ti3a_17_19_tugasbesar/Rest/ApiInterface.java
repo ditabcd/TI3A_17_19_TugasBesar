@@ -26,4 +26,13 @@ public interface ApiInterface {
             @Part("nama") RequestBody nama,
             @Part("alamat_jemput") RequestBody alamat_jemput,
             @Part("alamat_antar") RequestBody alamat_antar);
+
+    @Multipart
+    @POST("tiket/tiket")
+    Call<ResultTiket> postTiket(
+            @Part MultipartBody.Part file,
+            @Part("kota") RequestBody kota,
+            @Part("waktu") RequestBody waktu,
+            @Part("harga") RequestBody harga
+    );
 }

@@ -92,6 +92,11 @@ public class MainActivity extends AppCompatActivity {
             case R.id.menuLogout:
                 sessionManagement.logoutUser();
                 return true;
+            case R.id.menuAddTiket:
+                Intent i = new Intent(getApplicationContext(),AddTiketActivity.class);
+                startActivity(i);
+
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
