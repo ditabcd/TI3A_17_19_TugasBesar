@@ -2,6 +2,7 @@ package td.fransiska.ti3a_17_19_tugasbesar;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,11 +17,30 @@ import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.location.places.AutocompleteFilter;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlaceAutocomplete;
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.PolylineOptions;
+import com.google.maps.android.PolyUtil;
 
-public class ChooseDirectionActivity extends AppCompatActivity {
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import td.fransiska.ti3a_17_19_tugasbesar.Libraries.ApiServices;
+import td.fransiska.ti3a_17_19_tugasbesar.Libraries.InitLibrary;
+import td.fransiska.ti3a_17_19_tugasbesar.Responses.Distance;
+import td.fransiska.ti3a_17_19_tugasbesar.Responses.Duration;
+import td.fransiska.ti3a_17_19_tugasbesar.Responses.LegsItem;
+import td.fransiska.ti3a_17_19_tugasbesar.Responses.ResponseRoute;
+
+public class ChooseDirectionActivity extends AppCompatActivity implements OnMapReadyCallback{
 
     private GoogleMap mMap;
 

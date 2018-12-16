@@ -17,22 +17,18 @@ import com.google.android.gms.maps.model.LatLng;
 
 public class PlaceAutoCompleteActivity extends AppCompatActivity {
 
+    private TextView tvPickUpFrom, tvDestLocation;
+    private TextView tvPickUpAddr, tvPickUpLatLng, tvPickUpName;
+    private TextView tvDestLocAddr, tvDestLocLatLng, tvDestLocName;
+    public static final int PICK_UP = 0;
+    public static final int DEST_LOC = 1;
+    private static int REQUEST_CODE = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_place_auto_complete);
 
-        // Deklarasi variable
-        private TextView tvPickUpFrom, tvDestLocation;
-        private TextView tvPickUpAddr, tvPickUpLatLng, tvPickUpName;
-        private TextView tvDestLocAddr, tvDestLocLatLng, tvDestLocName;
-        public static final int PICK_UP = 0;
-        public static final int DEST_LOC = 1;
-        private static int REQUEST_CODE = 0;
-        @Override
-        protected void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            setContentView(R.layout.activity_place_auto_complete);
             getSupportActionBar().setTitle("Place Auto Complete");
             // Inisialisasi Widget
             wigetInit();
@@ -128,4 +124,3 @@ public class PlaceAutoCompleteActivity extends AppCompatActivity {
             }
         }
     }
-}
