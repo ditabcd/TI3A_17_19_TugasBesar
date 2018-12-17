@@ -6,12 +6,18 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import td.fransiska.ti3a_17_19_tugasbesar.Helpers.SessionManagement;
 import td.fransiska.ti3a_17_19_tugasbesar.Models.Tiket;
 
 public class DetailActivity extends AppCompatActivity {
 
+    TextView txtKota, txtHargaTravel, txtWaktu;
+    ImageView  imgKota;
     Button btnPembayaran;
     Button btnMaps;
     SessionManagement sessionManagement;
@@ -21,6 +27,11 @@ public class DetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
+        txtKota = findViewById(R.id.txtKota);
+        txtHargaTravel = findViewById(R.id.txtHarga);
+        txtWaktu = findViewById(R.id.txtWaktuBerangkat);
+        imgKota = findViewById(R.id.imgKota);
+
         btnPembayaran = findViewById(R.id.btnPembayaran);
         btnMaps = findViewById(R.id.btnMaps);
 
@@ -28,6 +39,11 @@ public class DetailActivity extends AppCompatActivity {
         sessionManagement = new SessionManagement(this);
 
         final Tiket mTiket = (Tiket) mIntent.getSerializableExtra("tiket_data");
+
+        txtKota.setText(mTiket.getKota());
+        txtHargaTravel.setText(mTiket.getHarga());
+        txtWaktu.setText(mTiket.getWaktu());
+        Picasso.with(getApplicationContext()).load(mTiket.getPhotoId()).placeholder(R.drawable.ic_launcher_background).error(R.drawable.ic_launcher_background).into(imgKota);
 
         btnPembayaran.setOnClickListener(new View.OnClickListener() {
             @Override
