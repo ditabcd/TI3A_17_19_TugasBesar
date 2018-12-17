@@ -1,7 +1,9 @@
 package td.fransiska.ti3a_17_19_tugasbesar;
 
+import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.widget.Button;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -11,9 +13,12 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import td.fransiska.ti3a_17_19_tugasbesar.Helpers.SessionManagement;
+
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
+    SessionManagement sessionManagement;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,5 +48,22 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         LatLng sydney = new LatLng(-34, 151);
         mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Intent mIntent;
+        switch (item.getItemId()) {
+            case R.id.menuLogout:
+                sessionManagement.logoutUser();
+                return true;
+            case R.id.menuAddTiket:
+                Intent i = new Intent(getApplicationContext(),AddTiketActivity.class);
+                startActivity(i);
+
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

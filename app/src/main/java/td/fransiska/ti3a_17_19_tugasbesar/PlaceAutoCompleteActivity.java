@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -15,6 +16,8 @@ import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlaceAutocomplete;
 import com.google.android.gms.maps.model.LatLng;
 
+import td.fransiska.ti3a_17_19_tugasbesar.Helpers.SessionManagement;
+
 public class PlaceAutoCompleteActivity extends AppCompatActivity {
 
     private TextView tvPickUpFrom, tvDestLocation;
@@ -23,11 +26,14 @@ public class PlaceAutoCompleteActivity extends AppCompatActivity {
     public static final int PICK_UP = 0;
     public static final int DEST_LOC = 1;
     private static int REQUEST_CODE = 0;
+    SessionManagement sessionManagement;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_place_auto_complete);
+
+        sessionManagement = new SessionManagement(this);
 
             getSupportActionBar().setTitle("Place Auto Complete");
             // Inisialisasi Widget
@@ -123,4 +129,21 @@ public class PlaceAutoCompleteActivity extends AppCompatActivity {
                 }
             }
         }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Intent mIntent;
+        switch (item.getItemId()) {
+            case R.id.menuLogout:
+                sessionManagement.logoutUser();
+                return true;
+            case R.id.menuAddTiket:
+                Intent i = new Intent(getApplicationContext(),AddTiketActivity.class);
+                startActivity(i);
+
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
+}

@@ -3,6 +3,7 @@ package td.fransiska.ti3a_17_19_tugasbesar;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -65,5 +66,22 @@ public class LoginActivity extends AppCompatActivity {
         Intent mIntent = new Intent(getApplicationContext(),
                 HomeActivity.class);
         startActivity(mIntent);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Intent mIntent;
+        switch (item.getItemId()) {
+            case R.id.menuLogout:
+                sessionManagement.logoutUser();
+                return true;
+            case R.id.menuAddTiket:
+                Intent i = new Intent(getApplicationContext(),AddTiketActivity.class);
+                startActivity(i);
+
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

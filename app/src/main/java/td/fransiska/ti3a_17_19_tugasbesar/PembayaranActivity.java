@@ -7,6 +7,7 @@ import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -23,6 +24,7 @@ import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import td.fransiska.ti3a_17_19_tugasbesar.Helpers.SessionManagement;
 import td.fransiska.ti3a_17_19_tugasbesar.Models.ResultPembelian;
 import td.fransiska.ti3a_17_19_tugasbesar.Rest.ApiInterface;
 import td.fransiska.ti3a_17_19_tugasbesar.Rest.ApiClient;
@@ -41,10 +43,14 @@ public class PembayaranActivity extends AppCompatActivity {
 
     String imagePath = "";
 
+    SessionManagement sessionManagement;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pembayaran);
+
+        sessionManagement = new SessionManagement(this);
 
         txtIdTiket = findViewById(R.id.txtIdTiket);
         imgGambar = findViewById(R.id.imgGambar);
@@ -85,5 +91,22 @@ public class PembayaranActivity extends AppCompatActivity {
                 });
             }
         });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Intent mIntent;
+        switch (item.getItemId()) {
+            case R.id.menuLogout:
+                sessionManagement.logoutUser();
+                return true;
+            case R.id.menuAddTiket:
+                Intent i = new Intent(getApplicationContext(),AddTiketActivity.class);
+                startActivity(i);
+
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

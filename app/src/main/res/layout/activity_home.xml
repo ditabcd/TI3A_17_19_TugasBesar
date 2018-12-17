@@ -27,9 +27,11 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:layout_weight="1"
-            >
+            android:backgroundTint="@color/cardview_light_background"
+            app:cardBackgroundColor="@android:color/holo_blue_dark">
 
             <ImageView
+                android:id="@+id/imgHome"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 android:layout_gravity="center_horizontal"
@@ -50,9 +52,11 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:layout_weight="1"
-            >
+            android:backgroundTint="@color/cardview_light_background"
+            app:cardBackgroundColor="@android:color/holo_blue_dark">
 
             <ImageView
+                android:id="@+id/imgList"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 android:layout_gravity="center_horizontal"
@@ -63,9 +67,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="160dp"
-                android:text="Keberangkatan"
-                android:textAlignment="center"
-                android:textColor="@drawable/android_back" />
+                android:text="Home"
+                android:textAlignment="center"/>
+
         </android.support.v7.widget.CardView>
     </LinearLayout>
 
@@ -73,15 +77,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:weightSum="2">
-
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:layout_weight="1"
-           >
+            android:backgroundTint="@color/cardview_light_background"
+            app:cardBackgroundColor="@android:color/holo_blue_dark">
 
             <ImageView
+                android:id="@+id/imgMoney"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 android:layout_gravity="center_horizontal"
@@ -92,9 +97,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="160dp"
-                android:text="Pembayaran"
-                android:textAlignment="center"
-                android:textColor="#000" />
+                android:text="Home"
+                android:textAlignment="center"/>
+
         </android.support.v7.widget.CardView>
 
         <android.support.v7.widget.CardView
@@ -102,9 +107,11 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:layout_weight="1"
-            >
+            android:backgroundTint="@color/cardview_light_background"
+            app:cardBackgroundColor="@android:color/holo_blue_dark">
 
             <ImageView
+                android:id="@+id/imgProfile"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 android:layout_gravity="center_horizontal"
@@ -115,11 +122,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="160dp"
-                android:text="Profile"
-                android:textAlignment="center"
-                android:textColor="#000" />
+                android:text="Home"
+                android:textAlignment="center"/>
+
         </android.support.v7.widget.CardView>
     </LinearLayout>
+
+
 
 
 </LinearLayout>

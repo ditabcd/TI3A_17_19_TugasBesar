@@ -6,6 +6,8 @@ import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -33,6 +35,7 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import td.fransiska.ti3a_17_19_tugasbesar.Helpers.SessionManagement;
 import td.fransiska.ti3a_17_19_tugasbesar.Libraries.ApiServices;
 import td.fransiska.ti3a_17_19_tugasbesar.Libraries.InitLibrary;
 import td.fransiska.ti3a_17_19_tugasbesar.Responses.Distance;
@@ -55,6 +58,7 @@ public class ChooseDirectionActivity extends AppCompatActivity implements OnMapR
     private LinearLayout infoPanel;
     // Deklarasi variable
     private TextView tvPickUpFrom, tvDestLocation;
+    SessionManagement sessionManagement;
 
     public static final int PICK_UP = 0;
     public static final int DEST_LOC = 1;
@@ -65,7 +69,8 @@ public class ChooseDirectionActivity extends AppCompatActivity implements OnMapR
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_direction);
 
-            getSupportActionBar().setTitle("Ojek Hampir Online");
+            getSupportActionBar().setTitle("Pilih Lokasi");
+            sessionManagement = new SessionManagement(this);
 
             // Inisialisasi Widget
             wigetInit();
@@ -269,5 +274,27 @@ public class ChooseDirectionActivity extends AppCompatActivity implements OnMapR
                     t.printStackTrace();
                 }
             });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_layout, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Intent mIntent;
+        switch (item.getItemId()) {
+            case R.id.menuLogout:
+                sessionManagement.logoutUser();
+                return true;
+            case R.id.menuAddTiket:
+                Intent i = new Intent(getApplicationContext(),AddTiketActivity.class);
+                startActivity(i);
+
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

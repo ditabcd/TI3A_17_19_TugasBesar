@@ -3,15 +3,19 @@ package td.fransiska.ti3a_17_19_tugasbesar;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+import td.fransiska.ti3a_17_19_tugasbesar.Helpers.SessionManagement;
 import td.fransiska.ti3a_17_19_tugasbesar.Models.Tiket;
 
 public class DetailActivity extends AppCompatActivity {
 
     Button btnPembayaran;
     Button btnMaps;
+    SessionManagement sessionManagement;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,6 +25,7 @@ public class DetailActivity extends AppCompatActivity {
         btnMaps = findViewById(R.id.btnMaps);
 
         Intent mIntent = getIntent();
+        sessionManagement = new SessionManagement(this);
 
         final Tiket mTiket = (Tiket) mIntent.getSerializableExtra("tiket_data");
 
@@ -40,5 +45,22 @@ public class DetailActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Intent mIntent;
+        switch (item.getItemId()) {
+            case R.id.menuLogout:
+                sessionManagement.logoutUser();
+                return true;
+            case R.id.menuAddTiket:
+                Intent i = new Intent(getApplicationContext(),AddTiketActivity.class);
+                startActivity(i);
+
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }
