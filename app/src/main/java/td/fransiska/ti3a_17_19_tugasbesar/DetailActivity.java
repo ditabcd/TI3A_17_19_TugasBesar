@@ -20,6 +20,7 @@ public class DetailActivity extends AppCompatActivity {
     ImageView  imgKota;
     Button btnPembayaran;
     Button btnMaps;
+    Button btnUpdate;
     SessionManagement sessionManagement;
 
     @Override
@@ -29,11 +30,12 @@ public class DetailActivity extends AppCompatActivity {
 
         txtKota = findViewById(R.id.txtKota);
         txtHargaTravel = findViewById(R.id.txtHarga);
-        txtWaktu = findViewById(R.id.txtWaktuBerangkat);
+        txtWaktu = findViewById(R.id.txtWaktu);
         imgKota = findViewById(R.id.imgKota);
 
         btnPembayaran = findViewById(R.id.btnPembayaran);
         btnMaps = findViewById(R.id.btnMaps);
+        btnUpdate= findViewById(R.id.btnUpdate);
 
         Intent mIntent = getIntent();
         sessionManagement = new SessionManagement(this);
@@ -41,7 +43,7 @@ public class DetailActivity extends AppCompatActivity {
         final Tiket mTiket = (Tiket) mIntent.getSerializableExtra("tiket_data");
 
         txtKota.setText(mTiket.getKota());
-        txtHargaTravel.setText(mTiket.getHarga());
+        txtHargaTravel.setText(String.valueOf(mTiket.getHarga()));
         txtWaktu.setText(mTiket.getWaktu());
         Picasso.with(getApplicationContext()).load(mTiket.getPhotoId()).placeholder(R.drawable.ic_launcher_background).error(R.drawable.ic_launcher_background).into(imgKota);
 
@@ -58,6 +60,15 @@ public class DetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(DetailActivity.this,MapsActivity.class);
+                startActivity(i);
+            }
+        });
+
+        btnUpdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(DetailActivity.this,PutDelTiketActivity.class);
+                i.putExtra("extraTiket", mTiket);
                 startActivity(i);
             }
         });

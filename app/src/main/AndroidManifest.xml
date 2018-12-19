@@ -58,6 +58,7 @@
         <activity android:name=".LoginActivity" />
         <activity android:name=".PlaceAutoCompleteActivity" />
         <activity android:name=".AddTiketActivity" />
+        <activity android:name=".PutDelTiketActivity" />
         <activity android:name=".ChooseDirectionActivity"></activity>
     </application>
 
